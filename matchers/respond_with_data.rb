@@ -35,10 +35,10 @@ RSpec::Matchers.define :respond_with_data do |expected|
   description do
     "respond with corresponding data"
   end
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected #{actual} response body would be equal \nto  : #{expected}, \ngot : #{result}"
   end
-  failure_message_for_should_not do |actual|
+  failure_message_when_negated do |actual|
     "expected #{actual} response body would not be equal \nto  : #{expected}, \ngot : #{result}"
   end
 end

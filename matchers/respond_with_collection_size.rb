@@ -5,10 +5,10 @@ RSpec::Matchers.define :respond_with_collection_size do |expected|
   description do
     "respond with a collection of record size of #{expected}"
   end
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected #{actual} response body collection would have a size of #{expected}, \ngot #{JSON::parse(actual.browser.last_response.body).size}"
   end
-  failure_message_for_should_not do |actual|
+  failure_message_when_negated do |actual|
     "expected #{actual} response body collection would not have a size of #{expected}, \ngot #{JSON::parse(actual.browser.last_response.body).size}"
   end
 end

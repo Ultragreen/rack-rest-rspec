@@ -5,10 +5,10 @@ RSpec::Matchers.define :respond_a_record do
   description do
     "respond with a record (Hash)"
   end
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected #{actual} response body would be a record \nneed : Hash, \ngot  : #{JSON::parse(actual.browser.last_response.body).class}"
   end
-  failure_message_for_should_not do |actual|
+  failure_message_when_negated do |actual|
     "expected #{actual} response body would not be a record \nneed : Hash, \ngot  : #{JSON::parse(actual.browser.last_response.body).class}"
   end
 end

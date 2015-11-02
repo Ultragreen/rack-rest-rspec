@@ -5,10 +5,10 @@ RSpec::Matchers.define :respond_with_status do |expected|
   description do
     "respond with status code equal to #{expected}"
   end
-  failure_message_for_should do |actual|
+  failure_message do |actual|
     "expected #{actual} response would be equal \nto  : #{expected} \ngot : #{actual.browser.last_response.status}"
   end
-  failure_message_for_should_not do |actual|
+  failure_message_when_negated do |actual|
     "expected #{actual} response would not be equal \nto  : #{expected} \ngot : #{actual.browser.last_response.status}"
   end
 end
