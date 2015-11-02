@@ -12,7 +12,7 @@ require 'yard/rake/yardoc_task.rb'
 require "rake/tasklib"
 require "roodi"
 require "roodi_task"
-
+require 'rake/version_task'
 
 RoodiTask.new() do | t |
 t.patterns = %w(lib/**/*.rb)
@@ -57,3 +57,4 @@ Rake::RDocTask.new('rdoc') do |d|
 end
 
 task :default => [:gem]
+Rake::VersionTask.new

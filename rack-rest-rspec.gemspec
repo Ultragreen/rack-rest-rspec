@@ -5,7 +5,7 @@ require 'rack-rest-rspec/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rack-rest-rspec"
-  spec.version       = rack-rest-rspec::VERSION
+  spec.version       = RackRestRspec::VERSION
   spec.authors       = ["Romain GEORGES"]
   spec.email         = ["romain@ultragreen.net"]
   spec.summary       = %q{Rack-rest-rspec: RSpec Matchers for REST Rack webservice }
@@ -25,7 +25,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'roodi', '~> 3.1', '>= 3.1.1'
   spec.add_development_dependency 'code_statistics', '~> 0.2', '>= 0.2.13'
   spec.add_development_dependency 'yard-rspec', '~> 0.1'
-
+  spec.add_development_dependency "version", "~> 1.0",'>= 1.0.0'
+  spec.add_runtime_dependency "rack-test", "~> 0.6", ">= 0.6.3"	
 
 
 end

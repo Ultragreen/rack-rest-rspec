@@ -1,6 +1,4 @@
+require 'version'
 module RackRestRspec
-  def version 
-    return 0.0.1a
-  end
-
+  is_versioned
 end
