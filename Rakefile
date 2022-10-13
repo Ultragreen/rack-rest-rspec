@@ -1,5 +1,7 @@
 require "bundler/gem_tasks"
 require 'rubygems'
+require 'version'
+require 'rake/version_task'
 require 'rspec'
 require 'rake'
 require "rake/clean"
@@ -13,6 +15,10 @@ require "rake/tasklib"
 require "roodi"
 require "roodi_task"
 
+
+task default: :spec
+
+Rake::VersionTask.new
 
 RoodiTask.new() do | t |
 t.patterns = %w(lib/**/*.rb)
@@ -45,16 +51,4 @@ end
 task :clobber => "yardoc:clobber"
 
 
-Gem::PackageTask.new(spec) do |pkg|
-  pkg.need_tar = true
-  pkg.need_zip = true
-end
-
-Rake::RDocTask.new('rdoc') do |d|
-  d.rdoc_files.include('doc/**/*','bin/*')
-  d.title = 'Dorsal : Yard'
-  d.options << '--line-numbers' << '--diagram' << '-SHN'
-end
-
-task :default => [:gem]
 
