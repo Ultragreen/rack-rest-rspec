@@ -22,4 +22,8 @@ class RestService
   
     def_delegators :@browser, :get, :post, :put, :delete
 
+    def returned_data
+      return JSON::parse(@browser.last_response.body, symbolize_names: true)
+    end
+
 end
