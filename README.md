@@ -176,19 +176,64 @@ You could, for debug your tests and during dev, dump your data with
 describe 'Test REST API' do
     before :all do
       $service = RestService::new :service => Application
-      $data = {name: "Sample App", version: "0.0.1", status: 'OK'}
-      $collection = [{one: 1}, {two: 2}, {three: 3}]
     end
   
     subject { $service }
-    context "GET /status : test for status" do
+    context "GET /data" do
+      it { expect(subject.get('/data')).to be_correctly_sent }
       it { subject.returned_data }
-
-      end
-
     end
-
 end
 ``` 
     
 It display the returned data of API. 
+
+###  Fixtures getter
+
+If you want to compare or inject data you could create fixture YAML files with :
+
+
+```ruby
+
+  describe 'Test REST API' do
+    before :all do
+      $service = RestService::new :service => Application
+      $mydata = get_file 'spec/fixtures/mydata.yml'
+    end
+  
+    subject { $service }
+    context "POST /data : test" do
+      it {  expect(subject.post('/data',$mydata.to_json)).to be_correctly_sent }
+    end
+
+
+end
+```
+
+### Statefullies helpers
+
+To be able to record ids of record, rack-rest-spec offer two helpers, to transit data from tests to tests.
+
+```ruby
+
+  describe 'Test REST API' do
+    before :all do
+      $service = RestService::new :service => Application
+      $mydata = get_file 'spec/fixtures/mydata.yml'
+    end
+  
+    subject { $service }
+    context "POST /data : test" do
+      it {  expect(subject.post('/data',$mydata.to_json)).to be_correctly_sent }
+      it { memorize id: subject.returned_data[:id] }
+    end
+
+    context "GET /data/<id> : test" do
+      it { expect(subject.get("/data#{retrieve(:id)}")).to be_correctly_sent }
+      end
+    end
+
+end
+```
+
+
