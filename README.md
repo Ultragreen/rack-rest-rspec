@@ -9,7 +9,7 @@
 ![GitHub milestones](https://img.shields.io/github/milestones/open/Ultragreen/rack-rest-rspec)
 
 ![Gem](https://img.shields.io/gem/dt/rack-rest-rspec)
-[![Gem Version](https://badge.fury.io/rb/sc4ry.svg)](https://badge.fury.io/rb/rack-rest-rspec)
+[![Gem Version](https://badge.fury.io/rb/rack-rest-rspec.svg)](https://badge.fury.io/rb/rack-rest-rspec)
 ![Twitter Follow](https://img.shields.io/twitter/follow/Ultragreen?style=social)
 ![GitHub Org's stars](https://img.shields.io/github/stars/Ultragreen?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/Ultragreen/carioca?style=social)
