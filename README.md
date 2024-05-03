@@ -26,27 +26,27 @@ Considering this API made with [Sinatra](https://sinatrarb.com/) :
 class Application < Sinatra::Base
 
 
-    before do
-        content_type 'application/json'
-    end
+  before do
+      content_type 'application/json'
+  end
 
-    get '/status' do
-        status 208
-        return {name: "Sample App", version: "0.0.1", status: 'OK'}.to_json
-    end
+  get '/status' do
+      status 208
+      return {name: "Sample App", version: "0.0.1", status: 'OK'}.to_json
+  end
 
-    get '/embeded_status' do
-        status 208
-        return {code: 208, data: {name: "Sample App", version: "0.0.1", status: 'OK'}}.to_json
-    end
+  get '/embeded_status' do
+      status 208
+      return {code: 208, data: {name: "Sample App", version: "0.0.1", status: 'OK'}}.to_json
+  end
 
-    get '/collection' do
-        return [{one: 1}, {two: 2}, {three: 3}].to_json
-    end
+  get '/collection' do
+      return [{one: 1}, {two: 2}, {three: 3}].to_json
+  end
 
-    get '/embeded_collection' do
-        return {code: 200, data: [{one: 1}, {two: 2}, {three: 3}]}.to_json
-    end
+  get '/embeded_collection' do
+      return {code: 200, data: [{one: 1}, {two: 2}, {three: 3}]}.to_json
+  end
 
 end
 ```
@@ -55,47 +55,45 @@ You could test this with rack-rest-rspec :
 
 ```ruby
 describe 'Test REST API' do
-    before :all do
-      $service = RestService::new :service => Application
-      $data = {name: "Sample App", version: "0.0.1", status: 'OK'}
-      $collection = [{one: 1}, {two: 2}, {three: 3}]
-    end
-  
-    subject { $service }
-    context "GET /status : test for status" do
-      it { expect(subject.get('/status')).to be_correctly_sent }
-      it { expect(subject).to respond_with_status code: 208 }
-      it { expect(subject).to respond_a_record }
-      it { expect(subject).to respond_with data: $data }
-    end
-
-    context "GET /embeded_status : test for status" do
-      it { expect(subject.get('/embeded_status')).to be_correctly_sent }
-      it { expect(subject).to respond_with_status code: 208 }
-      it { expect(subject).to respond_a_record root: :data }
-      it { expect(subject).to respond_with data: $data, root: :data } 
-    end
-    
-
-    context "GET /collection : test for Array" do
-      it { expect(subject.get('/collection')).to be_correctly_sent }
-      it { expect(subject).to respond_with_status code: 200 }
-      it { expect(subject).to respond_a_collection_of_record }
-      it { expect(subject).to respond_with_collection size: 3 }
-      it { expect(subject).to respond_with data: $collection }
-    end
-
-
-    context "GET /embeded_collection : test for Array" do
-      it { expect(subject.get('/embeded_collection')).to be_correctly_sent }
-      it { expect(subject).to respond_with_status code: 200 }
-      it { expect(subject).to respond_a_collection_of_record root: :data}
-      it { expect(subject).to respond_with_collection size: 3,root: :data }
-      it { expect(subject).to respond_with data: $collection, root: :data }
-    end
-
-  
+  before :all do
+    $service = RestService::new :service => Application
+    $data = {name: "Sample App", version: "0.0.1", status: 'OK'}
+    $collection = [{one: 1}, {two: 2}, {three: 3}]
   end
+
+  subject { $service }
+  context "GET /status : test for status" do
+    it { expect(subject.get('/status')).to be_correctly_sent }
+    it { expect(subject).to respond_with_status code: 208 }
+    it { expect(subject).to respond_a_record }
+    it { expect(subject).to respond_with data: $data }
+  end
+
+  context "GET /embeded_status : test for status" do
+    it { expect(subject.get('/embeded_status')).to be_correctly_sent }
+    it { expect(subject).to respond_with_status code: 208 }
+    it { expect(subject).to respond_a_record root: :data }
+    it { expect(subject).to respond_with data: $data, root: :data } 
+  end
+  
+
+  context "GET /collection : test for Array" do
+    it { expect(subject.get('/collection')).to be_correctly_sent }
+    it { expect(subject).to respond_with_status code: 200 }
+    it { expect(subject).to respond_a_collection_of_record }
+    it { expect(subject).to respond_with_collection size: 3 }
+    it { expect(subject).to respond_with data: $collection }
+  end
+
+
+  context "GET /embeded_collection : test for Array" do
+    it { expect(subject.get('/embeded_collection')).to be_correctly_sent }
+    it { expect(subject).to respond_with_status code: 200 }
+    it { expect(subject).to respond_a_collection_of_record root: :data}
+    it { expect(subject).to respond_with_collection size: 3,root: :data }
+    it { expect(subject).to respond_with data: $collection, root: :data }
+  end
+end
 ```
 Output :
 
@@ -174,15 +172,15 @@ You could, for debug your tests and during dev, dump your data with
 
 ```ruby
 describe 'Test REST API' do
-    before :all do
-      $service = RestService::new :service => Application
-    end
-  
-    subject { $service }
-    context "GET /data" do
-      it { expect(subject.get('/data')).to be_correctly_sent }
-      it { subject.returned_data }
-    end
+  before :all do
+    $service = RestService::new :service => Application
+  end
+
+  subject { $service }
+  context "GET /data" do
+    it { expect(subject.get('/data')).to be_correctly_sent }
+    it { subject.returned_data }
+  end
 end
 ``` 
     
@@ -195,18 +193,16 @@ If you want to compare or inject data you could create fixture YAML files with :
 
 ```ruby
 
-  describe 'Test REST API' do
-    before :all do
-      $service = RestService::new :service => Application
-      $mydata = get_file 'spec/fixtures/mydata.yml'
-    end
-  
-    subject { $service }
-    context "POST /data : test" do
-      it {  expect(subject.post('/data',$mydata.to_json)).to be_correctly_sent }
-    end
+describe 'Test REST API' do
+  before :all do
+    $service = RestService::new :service => Application
+    $mydata = get_file 'spec/fixtures/mydata.yml'
+  end
 
-
+  subject { $service }
+  context "POST /data : test" do
+    it {  expect(subject.post('/data',$mydata.to_json)).to be_correctly_sent }
+  end
 end
 ```
 
@@ -216,23 +212,22 @@ To be able to record ids of record, rack-rest-spec offer two helpers, to transit
 
 ```ruby
 
-  describe 'Test REST API' do
-    before :all do
-      $service = RestService::new :service => Application
-      $mydata = get_file 'spec/fixtures/mydata.yml'
-    end
-  
-    subject { $service }
-    context "POST /data : test" do
-      it {  expect(subject.post('/data',$mydata.to_json)).to be_correctly_sent }
-      it { memorize id: subject.returned_data[:id] }
-    end
+describe 'Test REST API' do
+  before :all do
+    $service = RestService::new :service => Application
+    $mydata = get_file 'spec/fixtures/mydata.yml'
+  end
 
-    context "GET /data/<id> : test" do
-      it { expect(subject.get("/data#{retrieve(:id)}")).to be_correctly_sent }
-      end
-    end
+  subject { $service }
+  context "POST /data : test" do
+    it {  expect(subject.post('/data',$mydata.to_json)).to be_correctly_sent }
+    it { memorize id: subject.returned_data[:id] }
+  end
 
+  context "GET /data/<id> : test" do
+    it { expect(subject.get("/data#{retrieve(:id)}")).to be_correctly_sent }
+    end
+  end
 end
 ```
 
