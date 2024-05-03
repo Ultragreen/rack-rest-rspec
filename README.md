@@ -130,16 +130,45 @@ Finished in 0.01585 seconds (files took 0.25845 seconds to load)
 
 ## Available matchers :
 
-```
-* be_correctly_send : check if return is HTTP valid
-* respond_with_a_collection_of_record OPTIONAL[root: <:symbol>] : check if the return is a JSON Array, could be chroot with root:
-* respond_a_record OPTIONAL[root: <:symbol>] : check if the return is a JSON Hash, could be chroot with root:
-* respond_with_collection size: <Integer> OPTIONAL[root: <:symbol>] : check if the collection have the good size, could be chroot with root:
-* respond_with  data: <Object> OPTIONAL[root: <:symbol>] : check if the return match the given object, could be chroot with root:
-* respond_with_status <Integer> : check if the HTTP response code is the good.
-``` 
+
+### be_correctly_send 
+
+* check if return is HTTP valid
+
+### respond_with_a_collection_of_record
+
+* params :  
+  - OPTIONAL[root: <:symbol>] 
+* goal : check if the return is a JSON Array, could be chroot with *root:*
+
+
+### respond_a_record 
+
+* params : 
+  - OPTIONAL[root: <:symbol>] : 
+* goal : check if the return is a JSON Hash, could be chroot with *root:*
+
+### respond_with_collection
+* params :
+  -  size: Integer
+  -  OPTIONAL[root: <:symbol>] 
+* goal : check if the collection have the good size, could be chroot with *root:*
+  
+### respond_with  
+* params : 
+  - data: Object
+  - OPTIONAL[root: <:symbol>] 
+* goal : check if the return match the given object, could be chroot with root:
+
+### respond_with_status 
+* params : 
+  - code: Integer
+* goal : check if the HTTP response code is the good.
+
 
 ## More 
+
+### Data dumper RestService#returned_data
 
 You could, for debug your tests and during dev, dump your data with 
 
