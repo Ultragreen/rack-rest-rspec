@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Gem::Specification.new do |spec|
   spec.name          = 'rack-rest-rspec'
   spec.version       = `cat VERSION`
@@ -9,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.required_ruby_version = Gem::Requirement.new('>= 3.2.3')
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
@@ -21,7 +24,6 @@ Gem::Specification.new do |spec|
   end
 
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundle-audit', '~> 0.1.0'

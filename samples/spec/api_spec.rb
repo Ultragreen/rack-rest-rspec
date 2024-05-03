@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe 'Test REST API' do
   before :all do
     $service = RestService.new service: Application

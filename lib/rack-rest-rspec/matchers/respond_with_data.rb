@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def compare_array_of_hash(expected, actual)
   return false unless expected.size == actual.size
 
@@ -9,7 +11,7 @@ def compare_array_of_hash(expected, actual)
 end
 
 def prepare_array(data)
-  data.class == Hash ? [data] : data
+  data.instance_of?(Hash) ? [data] : data
 end
 
 RSpec::Matchers.define :respond_with do |options = {}|

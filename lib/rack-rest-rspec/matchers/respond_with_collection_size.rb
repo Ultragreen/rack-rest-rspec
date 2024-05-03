@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :respond_with_collection do |options = {}|
   expected = options[:size]
   match do |actual|

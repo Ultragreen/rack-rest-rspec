@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :respond_a_record do |options = {}|
   match do |actual|
     result = JSON.parse(actual.browser.last_response.body, symbolize_names: true)
     result = result[options[:root]] unless options[:root].nil?
-    result.class == Hash
+    result.instance_of?(Hash)
   end
   description do
     'respond with a record (Hash)'

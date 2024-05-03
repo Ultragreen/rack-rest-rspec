@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :respond_with_status do |options = {}|
   expected = options[:code]
   match do |actual|

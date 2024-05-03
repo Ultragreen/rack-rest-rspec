@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :be_correctly_sent do
   match do |actual|
-    actual.class == Rack::MockResponse
+    actual.instance_of?(Rack::MockResponse)
   end
   description do
     'be a valid HTTP verb request with a valid response return'
