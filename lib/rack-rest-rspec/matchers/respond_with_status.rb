@@ -1,7 +1,7 @@
-RSpec::Matchers.define :respond_with_status do |options={}|
+RSpec::Matchers.define :respond_with_status do |options = {}|
   expected = options[:code]
   match do |actual|
-    result = actual.browser.last_response 
+    result = actual.browser.last_response
     result.status == expected
   end
   description do

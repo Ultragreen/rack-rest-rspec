@@ -1,10 +1,9 @@
 require 'pstore'
 
 def memorize(options)
-
-  $store = PStore.new("/tmp/data.pstore")
+  $store = PStore.new('/tmp/data.pstore')
   $store.transaction do
-    options.each do |key,val|
+    options.each do |key, val|
       $store[key] = val
     end
     $store.commit
@@ -12,6 +11,6 @@ def memorize(options)
 end
 
 def retrieve(key)
-  $store = PStore.new("/tmp/data.pstore")
-  return $store.transaction { $store[key] }
+  $store = PStore.new('/tmp/data.pstore')
+  $store.transaction { $store[key] }
 end
