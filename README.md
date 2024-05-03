@@ -131,10 +131,10 @@ Finished in 0.01585 seconds (files took 0.25845 seconds to load)
 ## Available matchers :
 
 * be_correctly_send : check if return is HTTP valid
-* respond_with_a_collection_of_record : check if the return is a JSON Array
-* respond_a_record : check if the return is a JSON Hash
-* respond_with_collection_size <Integer> : check if the collection have the good size
-* respond_with_data <Object> : check if the return match the given object
+* respond_with_a_collection_of_record OPTIONAL[root: <:symbol>] : check if the return is a JSON Array, could be chroot with root:
+* respond_a_record OPTIONAL[root: <:symbol>] : check if the return is a JSON Hash, could be chroot with root:
+* respond_with_collection size: <Integer> OPTIONAL[root: <:symbol>] : check if the collection have the good size, could be chroot with root:
+* respond_with  data: <Object> OPTIONAL[root: <:symbol>] : check if the return match the given object, could be chroot with root:
 * respond_with_status <Integer> : check if the HTTP response code is the good.
 
 
