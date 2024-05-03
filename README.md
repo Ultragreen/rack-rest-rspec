@@ -130,16 +130,36 @@ Finished in 0.01585 seconds (files took 0.25845 seconds to load)
 
 ## Available matchers :
 
+```
 * be_correctly_send : check if return is HTTP valid
 * respond_with_a_collection_of_record OPTIONAL[root: <:symbol>] : check if the return is a JSON Array, could be chroot with root:
 * respond_a_record OPTIONAL[root: <:symbol>] : check if the return is a JSON Hash, could be chroot with root:
 * respond_with_collection size: <Integer> OPTIONAL[root: <:symbol>] : check if the collection have the good size, could be chroot with root:
 * respond_with  data: <Object> OPTIONAL[root: <:symbol>] : check if the return match the given object, could be chroot with root:
 * respond_with_status <Integer> : check if the HTTP response code is the good.
+``` 
 
+## More 
 
+You could, for debug your tests and during dev, dump your data with 
 
+```ruby
+describe 'Test REST API' do
+    before :all do
+      $service = RestService::new :service => Application
+      $data = {name: "Sample App", version: "0.0.1", status: 'OK'}
+      $collection = [{one: 1}, {two: 2}, {three: 3}]
+    end
+  
+    subject { $service }
+    context "GET /status : test for status" do
+      it { subject.returned_data }
 
+      end
 
+    end
+
+end
+``` 
     
-
+It display the returned data of API. 
