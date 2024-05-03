@@ -11,22 +11,18 @@ def compare_array_of_hash expected, actual
 end
 
 def prepare_array data
-  data = (data.class == Hash)? [data] : data
-  data.each do |ahash|
-    ahash.symbolize!
-  end
-  return data
+  return (data.class == Hash)? [data] : data
 end
 
 
-RSpec::Matchers.define :respond_with_data do |expected|
-  result = ""
+RSpec::Matchers.define :respond_with do |options={}|
+  expected = options[:data]
   match do |actual|
-    result = actual.browser.last_response.body
+    result = JSON::parse(actual.browser.last_response.body, symbolize_names: true)
+    result  = result[options[:root]] unless options[:root].nil?
     if result.empty? then
       false 
     else
-      result = JSON::parse(result)
       result = prepare_array result
       expected = prepare_array expected
       compare_array_of_hash expected,result
@@ -36,9 +32,13 @@ RSpec::Matchers.define :respond_with_data do |expected|
     "respond with corresponding data"
   end
   failure_message do |actual|
+    result = JSON::parse(actual.browser.last_response.body, symbolize_names: true)
+    result  = result[options[:root]] unless options[:root].nil?
     "expected #{actual} response body would be equal \nto  : #{expected}, \ngot : #{result}"
   end
   failure_message_when_negated do |actual|
+    result = JSON::parse(actual.browser.last_response.body, symbolize_names: true)
+    result  = result[options[:root]] unless options[:root].nil?
     "expected #{actual} response body would not be equal \nto  : #{expected}, \ngot : #{result}"
   end
 end
