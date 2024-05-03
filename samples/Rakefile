@@ -1,0 +1,8 @@
+
+require 'rspec/core/rake_task'
+require './app'
+
+RSpec::Core::RakeTask.new do |task|
+  task.pattern = 'spec/**/*_spec.rb'
+end
+
